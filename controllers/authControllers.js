@@ -1,5 +1,6 @@
 const Usuarios = require("../model/usuario_model");
 const bcrypt = require("bcrypt");
+var jwt = require("jsonwebtoken");
 
 const crearUsuario = async (req, res) => {
   const { name, email, password } = req.body;
@@ -61,6 +62,18 @@ const loginUsuario = async (req, res) => {
         msg: "Usuario o contraseña no son correctos",
       });
     }
+
+    const payload = {
+      name: usuario.name,
+      id: usuario._id,
+      rol: usuario.rol,
+    };
+
+    const token = jwt.sign(payload, process.env.SECRET_JWT, {
+      expiresIn: "3h",
+    });
+
+    console.log(token);
 
     res.status(200).json({
       msg: "Usuario logueado",
