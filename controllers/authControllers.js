@@ -36,6 +36,43 @@ const crearUsuario = async (req, res) => {
   }
 };
 
+const loginUsuario = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({
+      msg: "Todos los campos son obligatorios",
+    });
+  }
+
+  try {
+    let usuario = await Usuarios.findOne({ email });
+
+    if (!usuario) {
+      return res.status(400).json({
+        msg: "Usuario o contraseña no son correctos",
+      });
+    }
+
+    const validarPassword = bcrypt.compareSync(password, usuario.password);
+
+    if (!validarPassword) {
+      return res.status(400).json({
+        msg: "Usuario o contraseña no son correctos",
+      });
+    }
+
+    res.status(200).json({
+      msg: "Usuario logueado",
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: "Por favor contactarse con el administrador",
+    });
+  }
+};
+
 module.exports = {
   crearUsuario,
+  loginUsuario,
 };
