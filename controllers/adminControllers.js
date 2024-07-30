@@ -1,17 +1,17 @@
 const Usuarios = require("../model/usuario_model");
 
-// const listaUsuarios = async (req, res) => {
-//   try {
-//     const listaUsuarios = await Usuarios.find();
-//     res.status(200).json({
-//       listaUsuarios,
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       msg: "Por favor contactarse con el administrador",
-//     });
-//   }
-// };
+const listaUsuarios = async (req, res) => {
+  try {
+    const listaUsuarios = await Usuarios.find();
+    res.status(200).json({
+      listaUsuarios,
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: "Por favor contactarse con el administrador",
+    });
+  }
+};
 
 // const eliminarUsuario = async (req, res) => {
 //   try {
@@ -22,7 +22,6 @@ const Usuarios = require("../model/usuario_model");
 //   }
 // };
 
-// module.exports = {
-//   listaUsuarios,
-//     eliminarUsuario,
-// };
+module.exports = {
+  listaUsuarios,
+};
