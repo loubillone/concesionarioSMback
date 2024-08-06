@@ -70,14 +70,13 @@ const loginUsuario = async (req, res) => {
     };
 
     const token = jwt.sign(payload, process.env.SECRET_JWT, {
-      expiresIn: "3h",
+      expiresIn: "1h",
     });
-
-    console.log(token);
 
     res.status(200).json({
       msg: "Usuario logueado",
       token,
+      payload,
     });
   } catch (error) {
     res.status(500).json({

@@ -12,6 +12,27 @@ const listaUsuarios = async (req, res) => {
     });
   }
 };
+const editarUsuario = async (req, res) => {
+  try {
+    const usuarioEditar = await Usuarios.findById(req.body._id);
+
+    if (!usuarioEditar) {
+      return res.status(400).json({
+        msg: "El usuario a editar no existe",
+      });
+    }
+
+    await Usuarios.findByIdAndUpdate(req.body._id, req.body);
+
+    res.status(200).json({
+      msg: "Usuario editado",
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: "Por favor contactarse con el administrador",
+    });
+  }
+};
 
 const eliminarUsuario = async (req, res) => {
   try {
@@ -38,4 +59,5 @@ const eliminarUsuario = async (req, res) => {
 module.exports = {
   listaUsuarios,
   eliminarUsuario,
+  editarUsuario,
 };
